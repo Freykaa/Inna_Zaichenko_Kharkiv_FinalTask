@@ -1,6 +1,5 @@
 package pages;
 
-import io.cucumber.java.en.And;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -11,6 +10,9 @@ public class SearchResultsPage extends BasePage {
 
     @FindBy(xpath = "//div[@data-component-type ='s-search-result']//div[@class='a-section a-spacing-base']//span[@class='a-size-base-plus a-color-base a-text-normal']")
     private List<WebElement> productList;
+
+    @FindBy(xpath = "//a[@class='a-link-normal s-underline-text s-underline-link-text s-link-style a-text-normal']")
+    private List<WebElement> productPageLink;
 
     @FindBy(id = "brandsRefinements")
     private WebElement brandsFilter;
@@ -44,6 +46,6 @@ public class SearchResultsPage extends BasePage {
         priceSymbol.getText().contains(symbol); }
 
     public void openProductPage() {
-        productList.get(0).click();
+        productPageLink.get(1).click();
     }
 }

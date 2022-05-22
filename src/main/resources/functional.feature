@@ -14,7 +14,7 @@ Feature: Functional
 
     Examples:
       | homePage                | zipcode |
-      | https://www.amazon.com/ | str  |
+      | https://www.amazon.com/ | str     |
 
   Scenario Outline: change delivery country
     Given User opens '<homePage>' page
@@ -52,7 +52,7 @@ Feature: Functional
 
     Examples:
       | homePage                | keyword |
-      | https://www.amazon.com/ | mouse    |
+      | https://www.amazon.com/ | mouse   |
 
   Scenario Outline: filter search query by brand
     Given User opens '<homePage>' page
@@ -76,8 +76,8 @@ Feature: Functional
     Then User checks that current url contains 'es' language
 
     Examples:
-    | homePage                |
-    | https://www.amazon.com/ |
+    | homePage                  |
+    | https://www.amazon.com/   |
 
   Scenario Outline: currency change on Customer Preference Page
     Given User opens '<homePage>' page
@@ -91,7 +91,7 @@ Feature: Functional
 
     Examples:
     | homePage                | keyword | symbol |
-    | https://www.amazon.com/ | dress   | EUR   |
+    | https://www.amazon.com/ | dress   | EUR    |
 
   Scenario Outline: check paging on Category Page
     Given User opens '<homePage>' page
@@ -105,6 +105,20 @@ Feature: Functional
 
     Examples:
     | homePage                | page |
-    | https://www.amazon.com/ | 2      |
+    | https://www.amazon.com/ | 2    |
+
+  Scenario Outline: check review rating filter
+    Given User opens '<homePage>' page
+    And User makes search by keyword '<keyword>'
+    And User clicks search button
+    And User opens product page
+    When User checks customer review button visibility
+    And User clicks customer review button
+    And User filters reviews by rating
+    Then User checks that '<rating>' equals filter
+
+    Examples:
+    | homePage                | rating | keyword   |
+    | https://www.amazon.com/ | 1      | eyeshadow |
 
 

@@ -214,7 +214,7 @@ public class DefinitionSteps {
 
     @Then("User checks that current url contains {string} language")
     public void checkCurrentUrl(final String language) {
-        driver.getCurrentUrl().contains(language);
+        assertTrue(driver.getCurrentUrl().contains(language));
     }
 
     @And("User checks currency list visibility")
@@ -280,5 +280,37 @@ public class DefinitionSteps {
     @After
     public void tearDown() {
         driver.close();
+    }
+
+    @And("User opens product page")
+    public void clickProductPage() {
+        searchResultsPage.openProductPage();
+        productPage = pageFactoryManager.getProductPage();
+        productPage.waitForPageLoadComplete(DEFAULT_TIMEOUT);
+    }
+
+    @When("User checks customer review button visibility")
+    public void checkReviewButtonVisibility() {
+        productPage.isReviewIconVisible();
+    }
+
+    @And("User clicks customer review button")
+    public void clickCustomerReviewButton() {
+        productPage.clickReviewIcon();
+    }
+
+    @And("User filters reviews by rating")
+    public void filterReviewsByRating() {
+        productPage.filterByRating();
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Then("User checks that {string} equals filter")
+    public void checksThatRatingEqualsFilter(final String rating) {
+        productPage.getReviewRating().forEach(review -> assertTrue(review.getText().contains(rating)));
     }
 }
