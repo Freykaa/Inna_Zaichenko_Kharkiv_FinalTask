@@ -17,6 +17,9 @@ public class ProductPage extends BasePage {
     @FindBy(xpath = "//a[@class='a-icon a-icon-star a-star-1 review-rating']")
     private List<WebElement> reviewRating;
 
+    @FindBy(xpath = "//a[@id='bylineInfo']")
+    private WebElement storePageLink;
+
     public ProductPage(WebDriver driver) { super(driver); }
 
     public void isReviewIconVisible() {
@@ -34,4 +37,14 @@ public class ProductPage extends BasePage {
     public List<WebElement> getReviewRating() {
         return reviewRating;
     }
+
+    public void isStorePageLinkVisible() {
+        storePageLink.isDisplayed();
+    }
+
+    public void clickStorePageLink() {
+        storePageLink.click();
+    }
+
+
 }

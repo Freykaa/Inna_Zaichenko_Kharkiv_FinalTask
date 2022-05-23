@@ -5,17 +5,10 @@ import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
 import manager.PageFactoryManager;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.Wait;
 import pages.*;
-
-import java.time.Duration;
-
 import static io.github.bonigarcia.wdm.WebDriverManager.chromedriver;
 import static org.junit.Assert.*;
 
@@ -33,6 +26,7 @@ public class DefinitionSteps {
     SearchResultsPage searchResultsPage;
     ShopByCategoryPage shopByCategoryPage;
     ComputerCategoryPage computerCategoryPage;
+    StorePage storePage;
 
     @Before
     public void testsSetUp() {
@@ -54,7 +48,7 @@ public class DefinitionSteps {
         homePage.isLocationVisible();
     }
 
-    @When("User clicks location button")
+    @And("User clicks location button")
     public void clickLocationButton() {
         homePage.clickLocation();
     }
@@ -75,7 +69,7 @@ public class DefinitionSteps {
         homePage.clickZipcodeButton();
     }
 
-    @Then("User gets *INVALID ZIPCODE* message")
+    @And("User gets *INVALID ZIPCODE* message")
     public void getInvalidZipcodeMessage() {
         homePage.waitVisibilityOfElement(DEFAULT_TIMEOUT, homePage.getInvalidZipcodeError());
         assertTrue(homePage.getInvalidZipcodeError().isDisplayed());
@@ -87,7 +81,7 @@ public class DefinitionSteps {
         homePage.isCountryListVisible();
     }
 
-    @And("User click country list button")
+    @And("User clicks country list button")
     public void clickCountryListButton() {
         homePage.clickCountryListButton();
     }
@@ -110,13 +104,13 @@ public class DefinitionSteps {
         homePage.clickLocationPopoverCloseButton();
     }
 
-    @Then("delivery country changes to {string}")
+    @And("delivery country changes to {string}")
     public void checkThatCountryDeliveryChanged(final String country) {
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        } //thinkaboutwait
+        }
         assertTrue(homePage.getCountryDeliveryName().contains(country));
     }
 
@@ -124,7 +118,6 @@ public class DefinitionSteps {
     public void checkSignInButtonVisibility() {
         homePage.isSignInButtonVisible();
     }
-
 
     @And("User opens sign in page")
     public void userOpensSignInPage() {
@@ -143,7 +136,6 @@ public class DefinitionSteps {
         signInPage.clickContinueButton();
     }
 
-
     @Then("User gets error message")
     public void getEmptyEmailErrorMessage() {
         assertTrue(signInPage.isEmptyEmailErrorMessageVisible());
@@ -154,11 +146,10 @@ public class DefinitionSteps {
         homePage.isSearchFieldVisible();
     }
 
-    @When("User makes search by keyword {string}")
+    @And("User makes search by keyword {string}")
     public void searchByKeyword(final String keyword) {
         homePage.enterTextToSearchField(keyword);
     }
-
 
     @And("User clicks search button")
     public void clickSearchButton() {
@@ -167,7 +158,7 @@ public class DefinitionSteps {
         searchResultsPage.waitForPageLoadComplete(DEFAULT_TIMEOUT);
     }
 
-    @Then("User checks that all products contain search {string}")
+    @And("User checks that all products contain search {string}")
     public void checkThatAllProductsContainSearchKeyword(final String keyword) {
         searchResultsPage.getProductList().forEach(product ->
             assertTrue(product.getText().contains(keyword)));
@@ -183,18 +174,17 @@ public class DefinitionSteps {
         searchResultsPage.selectBrandToFilter();
     }
 
-    @Then("User checks filtered product visibility")
+    @And("User checks filtered product visibility")
     public void checkFilteredProductVisibility() {
        assertFalse(searchResultsPage.isBrandSelected());
     }
-
 
     @And("User checks customer preference button visibility")
     public void checkLanguageButtonVisibility() {
         homePage.isLanguageButtonVisible();
     }
 
-    @When("User clicks customer preference button")
+    @And("User clicks customer preference button")
     public void clickLanguageButton() {
         homePage.clickLanguageButton();
         customerPreferencePage = pageFactoryManager.getCustomerPreferencePage();
@@ -202,9 +192,7 @@ public class DefinitionSteps {
     }
 
     @And("User checks language list visibility")
-    public void checkLanguageListVisibility() throws InterruptedException {
-        customerPreferencePage.isLanguageListVisible();
-    }
+    public void checkLanguageListVisibility() { customerPreferencePage.isLanguageListVisible(); }
 
     @And("User chooses language")
     public void userChoosesSpanish() {
@@ -212,7 +200,7 @@ public class DefinitionSteps {
         homePage.waitForPageLoadComplete(DEFAULT_TIMEOUT);
     }
 
-    @Then("User checks that current url contains {string} language")
+    @And("User checks that current url contains {string} language")
     public void checkCurrentUrl(final String language) {
         assertTrue(driver.getCurrentUrl().contains(language));
     }
@@ -228,7 +216,7 @@ public class DefinitionSteps {
         customerPreferencePage.selectCurrency();
     }
 
-    @Then("User checks that price contains {string}")
+    @And("User checks that price contains {string}")
     public void checkPriceSymbolContains(final String symbol) {
         searchResultsPage.waitVisibilityOfElement(DEFAULT_TIMEOUT, searchResultsPage.isPriceVisible());
         assertTrue(searchResultsPage.priceSymbol(symbol));
@@ -244,7 +232,6 @@ public class DefinitionSteps {
         homePage.clickShopByCategoryButton();
         shopByCategoryPage = pageFactoryManager.getShopByCategoryPage();
         shopByCategoryPage.waitForPageLoadComplete(DEFAULT_TIMEOUT);
-
     }
 
     @And("User selects computer category")
@@ -266,20 +253,15 @@ public class DefinitionSteps {
         monitorsCategoryPage.isNextPageButtonVisible();
     }
 
-    @When("Users clicks next page button")
+    @And("Users clicks next page button")
     public void clickNextPageButton() {
         monitorsCategoryPage.clickNextPageButton();
         monitorsCategoryPage.waitForPageLoadComplete(DEFAULT_TIMEOUT);
     }
 
-    @Then("User checks that page changes to {string}")
+    @And("User checks that page changes to {string}")
     public void checkPageChange(final String page) {
         assertTrue(monitorsCategoryPage.getCurrentPage().contains(page));
-    }
-
-    @After
-    public void tearDown() {
-        driver.close();
     }
 
     @And("User opens product page")
@@ -289,7 +271,7 @@ public class DefinitionSteps {
         productPage.waitForPageLoadComplete(DEFAULT_TIMEOUT);
     }
 
-    @When("User checks customer review button visibility")
+    @And("User checks customer review button visibility")
     public void checkReviewButtonVisibility() {
         productPage.isReviewIconVisible();
     }
@@ -309,8 +291,30 @@ public class DefinitionSteps {
         }
     }
 
-    @Then("User checks that {string} equals filter")
+    @And("User checks that {string} equals filter")
     public void checksThatRatingEqualsFilter(final String rating) {
         productPage.getReviewRating().forEach(review -> assertTrue(review.getText().contains(rating)));
+    }
+
+    @And("User checks store page link visibility")
+    public void checksStorePageVisibility() {
+        productPage.isStorePageLinkVisible();
+    }
+
+    @And("User click store page")
+    public void clickStorePage() {
+        productPage.clickStorePageLink();
+    }
+
+    @And("User checks that store page opens")
+    public void userChecksThatStorePageOpens() {
+        storePage = pageFactoryManager.getStorePage();
+        productPage.waitForPageLoadComplete(DEFAULT_TIMEOUT);
+        assertTrue(driver.getCurrentUrl().contains("stores"));
+    }
+
+    @After
+    public void tearDown() {
+        driver.close();
     }
 }

@@ -26,26 +26,17 @@ public class SearchResultsPage extends BasePage {
 
     public SearchResultsPage(WebDriver driver) { super(driver); }
 
-    public List<WebElement> getProductList() { return productList; }
-
-    public void isBrandsFilterVisible() {
-        brandsFilter.isDisplayed();
-    }
-
-    public void selectBrandToFilter() {
-        brandsList.get(1).click();
-    }
-
-    public boolean isBrandSelected() {
-        return brandsList.get(0).isSelected();
-    }
-
     public WebElement isPriceVisible() { return priceSymbol; }
 
-    public boolean priceSymbol(final String symbol) { return
-        priceSymbol.getText().contains(symbol); }
+    public List<WebElement> getProductList() { return productList; }
 
-    public void openProductPage() {
-        productPageLink.get(1).click();
-    }
+    public void isBrandsFilterVisible() { brandsFilter.isDisplayed(); }
+
+    public void selectBrandToFilter() { brandsList.get(1).click(); }
+
+    public boolean isBrandSelected() { return brandsList.get(0).isSelected(); }
+
+    public boolean priceSymbol(final String symbol) { return priceSymbol.getText().contains(symbol); }
+
+    public void openProductPage() { productPageLink.get(1).click(); }
 }

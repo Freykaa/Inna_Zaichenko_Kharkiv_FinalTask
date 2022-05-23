@@ -6,7 +6,7 @@ import pages.*;
 
 public class PageFactoryManager {
 
-    WebDriver driver;
+    final WebDriver driver;
 
     public PageFactoryManager(WebDriver driver) { this.driver = driver; }
 
@@ -25,4 +25,6 @@ public class PageFactoryManager {
     public ShopByCategoryPage getShopByCategoryPage() { return new ShopByCategoryPage(driver); }
 
     public ComputerCategoryPage getComputerCategoryPage() { return new ComputerCategoryPage(driver); }
+
+    public StorePage getStorePage() { return new StorePage(driver); }
 }

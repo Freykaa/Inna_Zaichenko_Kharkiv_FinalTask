@@ -14,6 +14,8 @@ public class MonitorsCategoryPage extends BasePage {
 
     public MonitorsCategoryPage(WebDriver driver) { super(driver); }
 
+    public String getCurrentPage() { return currentPage.getText(); }
+
     public void isNextPageButtonVisible() {
         nextPageButton.isDisplayed();
     }
@@ -22,8 +24,6 @@ public class MonitorsCategoryPage extends BasePage {
         nextPageButton.click();
     }
 
-    public String getCurrentPage() {
-        return currentPage.getText();
-    }
+
 
 }

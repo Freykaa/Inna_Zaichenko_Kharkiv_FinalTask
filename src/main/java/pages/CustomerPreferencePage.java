@@ -30,8 +30,8 @@ public class CustomerPreferencePage extends BasePage {
     }
 
     public void chooseLanguageSpanish() {
-       getLanguageList.get(1).click();
-       saveButton.click();
+        getLanguageList.get(1).click();
+        saveButton.click();
     }
 
     public void isCurrencyDropdownButtonVisible() {
@@ -45,6 +45,7 @@ public class CustomerPreferencePage extends BasePage {
 
     public void selectCurrency() {
         currencyList.get(18).click();
+        waitInvisibilityOfElement(30, currencyList.get(18));
         saveButton.click();
     }
 }

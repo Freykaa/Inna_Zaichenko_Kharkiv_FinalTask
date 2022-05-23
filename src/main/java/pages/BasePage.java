@@ -1,10 +1,9 @@
 package pages;
 
-import org.openqa.selenium.By;
+
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -13,7 +12,7 @@ import java.time.Duration;
 
 public class BasePage {
 
-    protected WebDriver driver;
+    protected final WebDriver driver;
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
@@ -31,11 +30,6 @@ public class BasePage {
     public void waitVisibilityOfElement(long timeToWait, WebElement element) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeToWait));
         wait.until(ExpectedConditions.visibilityOf(element));
-    }
-
-    public void waitVisibilityOfAllElements(long timeToWait, WebElement element) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeToWait));
-        wait.until(ExpectedConditions.visibilityOfAllElements(element));
     }
 
     public void waitInvisibilityOfElement(long timeToWait, WebElement element) {

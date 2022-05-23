@@ -21,7 +21,7 @@ Feature: Functional
     And User checks location popover visibility
     When User clicks location button
     And User checks country list button visibility
-    And User click country list button
+    And User clicks country list button
     And User checks country list dropdown visibility
     And User chooses country from the list
     And User clicks done button
@@ -91,7 +91,7 @@ Feature: Functional
 
     Examples:
     | homePage                | keyword | symbol |
-    | https://www.amazon.com/ | dress   | EUR    |
+    | https://www.amazon.com/ | blush   | EUR    |
 
   Scenario Outline: check paging on Category Page
     Given User opens '<homePage>' page
@@ -112,13 +112,26 @@ Feature: Functional
     And User makes search by keyword '<keyword>'
     And User clicks search button
     And User opens product page
-    When User checks customer review button visibility
+    And User checks customer review button visibility
     And User clicks customer review button
-    And User filters reviews by rating
+    When User filters reviews by rating
     Then User checks that '<rating>' equals filter
 
     Examples:
     | homePage                | rating | keyword   |
     | https://www.amazon.com/ | 1      | eyeshadow |
+
+  Scenario Outline: check Store Page visibility
+    Given User opens '<homePage>' page
+    And User makes search by keyword '<keyword>'
+    And User clicks search button
+    And User opens product page
+    And User checks store page link visibility
+    When User click store page
+    Then User checks that store page opens
+
+    Examples:
+    | homePage                | keyword  |
+    | https://www.amazon.com/ | lipstick |
 
 

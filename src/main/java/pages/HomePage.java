@@ -1,10 +1,8 @@
 package pages;
 
-import org.apache.commons.compress.archivers.StreamingNotSupportedException;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.support.FindBy;
 
 public class HomePage extends BasePage {
@@ -53,13 +51,21 @@ public class HomePage extends BasePage {
 
     public HomePage(WebDriver driver) { super(driver); }
 
+    public WebElement getInvalidZipcodeError() { return invalidZipcodeError; }
+
+    public WebElement zipField() { return zipcodeField; }
+
+    public WebElement countryList() { return countryListDefaultItem; }
+
+    public WebElement getCountryListOpenDropdown() { return countryListOpenDropdown; }
+
+    public String getCountryDeliveryName() { return locationIcon.getText(); }
+
     public void openHomePage(String url) { driver.get(url); }
 
     public void isLocationVisible() { locationIcon.isDisplayed(); }
 
     public void clickLocation() { locationIcon.click(); }
-
-    public WebElement zipField() { return zipcodeField; }
 
     public void isLocationPopoverVisible() { locationPopover.isDisplayed(); }
 
@@ -67,23 +73,15 @@ public class HomePage extends BasePage {
 
     public void clickZipcodeButton() { zipcodeButton.click(); }
 
-    public WebElement getInvalidZipcodeError() { return invalidZipcodeError; }
-
-    public WebElement countryList() { return countryListDefaultItem; }
-
     public void isCountryListVisible() { countryListDefaultItem.isDisplayed(); }
 
     public void clickCountryListButton() { countryListDropdown.click(); }
-
-    public WebElement getCountryListOpenDropdown() { return countryListOpenDropdown; }
 
     public void isCountryListDropdownVisible() { countryListOpenDropdown.isDisplayed(); }
 
     public void chooseCountry() { countryFromListDropdown.click(); }
 
     public void clickLocationPopoverCloseButton() { closeLocationPopoverButton.click(); }
-
-    public String getCountryDeliveryName() { return locationIcon.getText(); }
 
     public void isSignInButtonVisible() { signInButton.isDisplayed(); }
 
