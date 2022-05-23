@@ -20,6 +20,9 @@ public class SearchResultsPage extends BasePage {
     @FindBy(xpath = "//ul[@aria-labelledby='p_89-title']//div[@class='a-checkbox a-checkbox-fancy s-navigation-checkbox aok-float-left']")
     private List<WebElement> brandsList;
 
+    @FindBy(xpath = "//ul[@aria-labelledby='p_89-title']//div[@class='a-checkbox a-checkbox-fancy s-navigation-checkbox aok-float-left']//input")
+    private List<WebElement> checkboxBrandsList;
+
     @FindBy(xpath = "//span[@class='a-price-symbol']")
     private WebElement priceSymbol;
 
@@ -32,9 +35,9 @@ public class SearchResultsPage extends BasePage {
 
     public void isBrandsFilterVisible() { brandsFilter.isDisplayed(); }
 
-    public void selectBrandToFilter() { brandsList.get(1).click(); }
+    public void selectBrandToFilter() { brandsList.get(0).click(); }
 
-    public boolean isBrandSelected() { return brandsList.get(0).isSelected(); }
+    public boolean isBrandSelected() { return checkboxBrandsList.get(0).isSelected(); }
 
     public boolean priceSymbol(final String symbol) { return priceSymbol.getText().contains(symbol); }
 

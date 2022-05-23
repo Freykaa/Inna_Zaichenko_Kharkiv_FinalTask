@@ -29,7 +29,7 @@ public class CustomerPreferencePage extends BasePage {
         languageList.isDisplayed();
     }
 
-    public void chooseLanguageSpanish() {
+    public void chooseLanguage() {
         getLanguageList.get(1).click();
         saveButton.click();
     }

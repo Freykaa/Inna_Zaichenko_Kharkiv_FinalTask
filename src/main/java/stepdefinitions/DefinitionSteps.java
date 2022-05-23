@@ -54,7 +54,7 @@ public class DefinitionSteps {
     }
 
     @And("User checks zip code field visibility")
-    public void checkZipCodeFieldVisibility() {
+    public void checkZipcodeVisibility() {
         homePage.waitVisibilityOfElement(DEFAULT_TIMEOUT, homePage.zipField());
         homePage.isLocationPopoverVisible();
     }
@@ -94,23 +94,16 @@ public class DefinitionSteps {
     }
 
     @And("User chooses country from the list")
-    public void selectCountryFromDropdown() {
-        homePage.chooseCountry();
-    }
+    public void selectCountryFromDropdown() { homePage.chooseCountry(); }
 
     @And("User clicks done button")
-    public void closeLocationPopover() {
-        homePage.waitInvisibilityOfElement(DEFAULT_TIMEOUT, homePage.getCountryListOpenDropdown());
+    public void closeLocationPopover() throws InterruptedException {
         homePage.clickLocationPopoverCloseButton();
+        Thread.sleep(3000);
     }
 
     @And("delivery country changes to {string}")
     public void checkThatCountryDeliveryChanged(final String country) {
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         assertTrue(homePage.getCountryDeliveryName().contains(country));
     }
 
@@ -120,7 +113,7 @@ public class DefinitionSteps {
     }
 
     @And("User opens sign in page")
-    public void userOpensSignInPage() {
+    public void openSignInPage() {
         homePage.clickSignInButton();
         signInPage = pageFactoryManager.getSignInPage();
         signInPage.waitForPageLoadComplete(DEFAULT_TIMEOUT);
@@ -176,7 +169,7 @@ public class DefinitionSteps {
 
     @And("User checks filtered product visibility")
     public void checkFilteredProductVisibility() {
-       assertFalse(searchResultsPage.isBrandSelected());
+       assertTrue(searchResultsPage.isBrandSelected());
     }
 
     @And("User checks customer preference button visibility")
@@ -195,8 +188,8 @@ public class DefinitionSteps {
     public void checkLanguageListVisibility() { customerPreferencePage.isLanguageListVisible(); }
 
     @And("User chooses language")
-    public void userChoosesSpanish() {
-        customerPreferencePage.chooseLanguageSpanish();
+    public void chooseLanguage() {
+        customerPreferencePage.chooseLanguage();
         homePage.waitForPageLoadComplete(DEFAULT_TIMEOUT);
     }
 
@@ -217,7 +210,7 @@ public class DefinitionSteps {
     }
 
     @And("User checks that price contains {string}")
-    public void checkPriceSymbolContains(final String symbol) {
+    public void checkPriceSymbol(final String symbol) {
         searchResultsPage.waitVisibilityOfElement(DEFAULT_TIMEOUT, searchResultsPage.isPriceVisible());
         assertTrue(searchResultsPage.priceSymbol(symbol));
     }
@@ -228,7 +221,7 @@ public class DefinitionSteps {
     }
 
     @And("User clicks shop by category button")
-    public void clicksShopByCategoryButton() {
+    public void clickShopByCategoryButton() {
         homePage.clickShopByCategoryButton();
         shopByCategoryPage = pageFactoryManager.getShopByCategoryPage();
         shopByCategoryPage.waitForPageLoadComplete(DEFAULT_TIMEOUT);
@@ -284,11 +277,7 @@ public class DefinitionSteps {
     @And("User filters reviews by rating")
     public void filterReviewsByRating() {
         productPage.filterByRating();
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        productPage.waitForPageLoadComplete(DEFAULT_TIMEOUT);
     }
 
     @And("User checks that {string} equals filter")
@@ -297,7 +286,7 @@ public class DefinitionSteps {
     }
 
     @And("User checks store page link visibility")
-    public void checksStorePageVisibility() {
+    public void checkStorePageVisibility() {
         productPage.isStorePageLinkVisible();
     }
 
@@ -307,7 +296,7 @@ public class DefinitionSteps {
     }
 
     @And("User checks that store page opens")
-    public void userChecksThatStorePageOpens() {
+    public void openStorePage() {
         storePage = pageFactoryManager.getStorePage();
         productPage.waitForPageLoadComplete(DEFAULT_TIMEOUT);
         assertTrue(driver.getCurrentUrl().contains("stores"));

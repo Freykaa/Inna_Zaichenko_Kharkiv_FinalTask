@@ -110,4 +110,5 @@ public class HomePage extends BasePage {
     public void clickShopByCategoryButton() {
         shopByCategoryButton.click();
     }
+
 }

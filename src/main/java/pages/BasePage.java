@@ -37,6 +37,16 @@ public class BasePage {
         wait.until(ExpectedConditions.invisibilityOf(element));
     }
 
+    public void waitForAjaxToCompletePdp(long timeToWait) {
+        new WebDriverWait(driver, Duration.ofSeconds(timeToWait)).until(
+                webDriver -> ((JavascriptExecutor) webDriver).executeScript("return window.jQuery != undefined && jQuery.active <=3;"));
+    }
+
+    public void waitUntilStalenessOf(long timeToWait, WebElement element) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeToWait));
+        wait.until(ExpectedConditions.stalenessOf(element));
+    }
+
 
 
 }
